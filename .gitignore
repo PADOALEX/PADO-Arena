@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.user
+*.suo
+TestResults/
+*.trx
+*.coverage
+coverage/
+arena-save.json
+arena-save.json.tmp
+battlelog.txt
