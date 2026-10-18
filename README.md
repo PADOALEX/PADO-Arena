@@ -84,7 +84,7 @@ Action: 1
 ```text
 PADO.Arena.sln
 ├── src/
-│   ├── Pado.Arena.Core/           # No Console or file I/O
+│   ├── Pado.Arena.Core/           # No console I/O; persistence isolated by namespace
 │   │   ├── Characters/           # Character, Hero subclasses, Enemy
 │   │   ├── Combat/               # CombatEngine, events, commands, random abstraction
 │   │   ├── Inventory/            # Item models
