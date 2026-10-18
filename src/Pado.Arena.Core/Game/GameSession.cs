@@ -47,8 +47,15 @@ public sealed class GameSession
                 events.Add(new(BattleEventKind.Progress, $"Level up x{levelUps}! +15 Max HP, +10 Max MP, +2 ATK, +1 DEF per level."));
             Hero.Heal(30);
             Hero.RestoreMana(20);
-            Hero.AddItem(Item.SmallPotion);
-            events.Add(new(BattleEventKind.Item, "Recovered up to 30 HP and 20 MP; found a Small Potion."));
+            if (Hero.Inventory.Count < 30)
+            {
+                Hero.AddItem(Item.SmallPotion);
+                events.Add(new(BattleEventKind.Item, "Recovered up to 30 HP and 20 MP; found a Small Potion."));
+            }
+            else
+            {
+                events.Add(new(BattleEventKind.Item, "Recovered up to 30 HP and 20 MP; inventory full, loot skipped."));
+            }
             CurrentEnemyIndex++;
             if (Status == GameStatus.Victory)
                 events.Add(new(BattleEventKind.Victory, "ARENA CLEARED! All three enemies defeated."));

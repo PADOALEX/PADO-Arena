@@ -89,7 +89,7 @@ public class CombatTests
         var enemy = Enemy.Create("Fast Goblin");
         enemy.TakeDamage(59);
         var result = new CombatEngine(new ControlledRandom()).Resolve(new Archer("Tester"), enemy, new(PlayerAction.Special));
-        Assert.Single(result.Events.Where(e => e.Kind == BattleEventKind.Damage));
+        Assert.Single(result.Events, e => e.Kind == BattleEventKind.Damage);
         Assert.Equal(0, enemy.Health);
     }
 
