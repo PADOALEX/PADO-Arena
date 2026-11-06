@@ -8,6 +8,7 @@ public static class SaveGameStore
 {
     private static readonly JsonSerializerOptions Options = new() { WriteIndented = true, PropertyNameCaseInsensitive = false };
     private const long MaxSaveBytes = 1_000_000;
+    private static readonly object SaveLock = new();
 
     public static void Save(string path, GameSession session)
     {
@@ -19,11 +20,11 @@ public static class SaveGameStore
             throw new InvalidDataException("Save game is too large.");
         // Write to a sibling temporary file, then atomically replace the target where supported.
         string fullPath = Path.GetFullPath(path);
-        string temporary = fullPath + ".tmp";
+        string temporary = fullPath + "." + Guid.NewGuid().ToString("N") + ".tmp";
         try
         {
             File.WriteAllText(temporary, json);
-            File.Move(temporary, fullPath, true);
+            lock (SaveLock) File.Move(temporary, fullPath, true);
         }
         finally
         {

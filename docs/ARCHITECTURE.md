@@ -61,6 +61,7 @@ flowchart TD
 - Both combatants' HP/MP are clamped; cannot revive from 0 HP by healing.
 - Progression is bounded to level 50. The experience threshold for the next level is `current level * 100`.
 - Saves cover the current battle's HP/MP, inventory, progression and event history. Save schema version 1 does not preserve PRNG internal state.
+- Saves use a unique sibling temporary file per operation and serialize final replacement within the process. Concurrent callers do not share temporary files or overwrite another writer's `.tmp` file. Cross-process coordination is outside this console exercise's scope.
 
 ## Follow-up ideas (not needed for scope)
 
